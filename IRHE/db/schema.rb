@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130711072311) do
+ActiveRecord::Schema.define(version: 20130711074604) do
 
   create_table "texts", force: true do |t|
     t.integer  "user_id"
@@ -30,6 +30,18 @@ ActiveRecord::Schema.define(version: 20130711072311) do
     t.string   "uid"
     t.string   "tz"
     t.boolean  "admin",      default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "words", force: true do |t|
+    t.string   "term"
+    t.string   "reading"
+    t.string   "definition"
+    t.string   "sentence"
+    t.string   "tags",       array: true
+    t.integer  "user_id"
+    t.integer  "text_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
