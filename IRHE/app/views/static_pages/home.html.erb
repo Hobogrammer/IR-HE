@@ -1,0 +1,8 @@
+<h1> Sign in  </h1>
+
+<% if current_user %>
+  <p><%= @current_user.name %></p>
+  <p> <%= link_to "Click here to sign out", signout_path %>
+<% else %>
+    <%=  link_to "Sign in via Twitter", signin_path %>
+<% end  %>
