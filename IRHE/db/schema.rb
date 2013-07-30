@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130717010021) do
+ActiveRecord::Schema.define(version: 20130728035509) do
 
   create_table "texts", force: true do |t|
     t.integer  "user_id"
@@ -40,11 +40,12 @@ ActiveRecord::Schema.define(version: 20130717010021) do
     t.string   "reading"
     t.string   "definition"
     t.string   "sentence"
-    t.string   "tags",       array: true
+    t.string   "tags",                       array: true
     t.integer  "user_id"
     t.integer  "text_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "shared",     default: false
   end
 
 end

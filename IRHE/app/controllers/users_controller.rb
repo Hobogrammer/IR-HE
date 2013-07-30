@@ -1,9 +1,12 @@
 class UsersController < ApplicationController
 
-  def index
+  def index #user list? needed?
   end
 
-  def show
+  def show #page other users see when they go to a users page
+  end
+
+  def main #page the user sees for his/her account
   end
 
 end

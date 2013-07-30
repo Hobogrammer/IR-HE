@@ -20,7 +20,7 @@ describe "StaticPages" do
 
       it { should have_selector('p', text: user.name) }
       it { should_not have_link("Sign in via Twitter", href: signin_path) }
-      it { should have_link("Click here to sign out" , href: signout_path ) }
+      it { should have_link("Sign out" , href: signout_path ) }
     end
   end
 end
