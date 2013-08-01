@@ -1,11 +1,20 @@
 require 'spec_helper'
 
 describe "TextPages" do
-  describe "GET /text_pages" do
-    it "works! (now write some real specs)" do
-      # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      get texts_path
-      response.status.should be(200)
+ 
+  subject { page }
+
+  describe "new text page" do
+    before { visit new_text_path }
+
+    describe "when not logged in" do
+      it { should have_content('error') }
+    end
+
+    describe "when logged in" do
+      it { should have_content('Text Title:') }
+      it { should have_content('Text Content') }
+      it { should have_content('Tags') }
     end
   end
 end

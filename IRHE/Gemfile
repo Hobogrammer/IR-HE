@@ -33,6 +33,7 @@ gem 'mechanize'
 gem 'bootstrap-sass', '2.3.2.0'
 gem 'omniauth-twitter'
 gem 'faker'
+gem 'simple_form'
 
 
 group :doc do
