@@ -19,5 +19,9 @@ describe "UserPages" do
       it { should have_link('Saved Words', users_words_path(:user)) }
       it { should have_link('Add a Text', new_users_text_path) }
     end
+
+    describe "texts list" do
+      
+    end
   end
 end

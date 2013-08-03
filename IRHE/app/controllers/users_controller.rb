@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   end
 
   def main #page the user sees for his/her account
+    @texts = current_user.texts
   end
 
 end

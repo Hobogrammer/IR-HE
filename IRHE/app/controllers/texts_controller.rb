@@ -1,10 +1,16 @@
 class TextsController < ApplicationController
 
   def index
+    @texts = Text.all
   end
 
   def new
-    @text = current_user.texts.build(text_params)
+    if @current_user
+      @text = current_user.texts.build(text_params)
+    else 
+      flash[:error] = "You need to be logged in to view this page"
+      redirect_to root_path
+    end
   end
 
   def create
