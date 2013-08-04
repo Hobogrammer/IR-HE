@@ -1,7 +1,12 @@
-<%= simple_form_for @text do |f| %>
-  <%= f.input :title %>
-  <%= f.input :content %>
-  <%= f.input :language %>
-  <%= f.input :tags %>
-  <%= f.button :submit %>
-<% end %>
+<div class="row">
+  <div class = "span6">
+  <%= simple_form_for @text do |f| %>
+    <%= f.input :title %>
+    <%= f.input :content %>
+    <%= f.input :language %>
+    <%= f.input :tags %>
+    <%= f.input :share %>
+    <%= f.button :submit %>
+  <% end %>
+</div>
+</div>

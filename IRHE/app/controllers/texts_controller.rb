@@ -1,20 +1,17 @@
 class TextsController < ApplicationController
-
+  before_filter :signed_in_user, only: [:create, :new, :destroy, :edit]
+  before_filter :correct_user, only: [:edit, :update, :destroy]
+  
   def index
     @texts = Text.all
   end
 
   def new
-    if @current_user
-      @text = current_user.texts.build(text_params)
-    else 
-      flash[:error] = "You need to be logged in to view this page"
-      redirect_to root_path
-    end
+    @text = Text.new
   end
 
   def create
-    @text = current_user.texts.build(text_params)
+    @text = Text.new(text_params)
     if @text.save
       flash[:success] = "Text Saved"
       redirect_to panel_path #Change to texts_path when that is finished
@@ -34,6 +31,6 @@ class TextsController < ApplicationController
 
   private
     def text_params
-      params.require(:text).permit(:title,:content,:language,:tags,:share, :id)
+      params.require(:text).permit(:title,:content,:language,:tags,:share, :user_id)
     end
 end

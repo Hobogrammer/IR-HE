@@ -7,7 +7,7 @@ module SessionsHelper
   def signed_in_user
     unless signed_in?
       store_location
-      redirect_to signin_path, notice: "Please sign in."
+      redirect_to root_path, notice: "You must be logged in to do view this page. Please sign in."
     end
   end
 

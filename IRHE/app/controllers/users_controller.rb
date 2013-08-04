@@ -10,4 +10,8 @@ class UsersController < ApplicationController
     @texts = current_user.texts
   end
 
+private
+  def user_params
+    params.require(:user).permit(:name, :provider, :avatar,:t_z, :uid)
+  end
 end
