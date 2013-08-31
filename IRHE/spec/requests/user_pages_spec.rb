@@ -5,7 +5,7 @@ describe "UserPages" do
   subject { page }
 
   describe "visiting user panel" do
-    let (:user) { FactoryGirl.create(:user) }
+     let (:user) { FactoryGirl.create(:user) }
     before do
       sign_in user
       visit panel_path
@@ -20,8 +20,16 @@ describe "UserPages" do
       it { should have_link('Add a Text', new_users_text_path) }
     end
 
-    describe "texts list" do
-      
+    describe "user texts list" do
+      before(:all) { 10.times { FactoryGirl.create(:text, user: user) } }
+      after(:all) { Text.delete_all }
+
+
+      it "should list all of the user's texts" do
+        @user.texts.each do |text|
+          page.should have_selector('li', text: text.title)
+        end
+      end
     end
   end
 end

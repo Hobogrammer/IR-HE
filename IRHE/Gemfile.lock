@@ -111,6 +111,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    mecab (0.98)
     mechanize (2.7.1)
       domain_name (~> 0.5, >= 0.5.1)
       http-cookie (~> 1.0.0)
@@ -146,6 +147,8 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
+    pry-rails (0.3.2)
+      pry (>= 0.9.10)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -248,9 +251,11 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   libnotify (= 0.8.0)
+  mecab
   mechanize
   omniauth-twitter
   pg
+  pry-rails
   rails (= 4.0.0)
   rspec-rails (= 2.13.1)
   sass-rails (~> 4.0.0)

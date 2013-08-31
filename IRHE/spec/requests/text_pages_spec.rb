@@ -26,4 +26,9 @@ describe "TextPages" do
       it { should have_content('Share') }
     end
   end
+
+  describe "displaying a text" do
+
+  
+  end
 end
