@@ -1,0 +1,15 @@
+@import "bootstrap";
+
+.appname {
+  float: left;
+  color:#FFFFFF;
+  letter-spacing: -1px;
+  padding-top: 9px;
+  line-height: 1;
+   font-size: 1.7em;
+
+}
+.center {
+  text-align: center;
+}
+ @media (min-width: 981px) { body { padding-top: 70px; } }
