@@ -38,7 +38,7 @@ class TextsController < ApplicationController
     word_check = Text.mecab_check(@selection).first.to_s
     
 
-    if !word_check == false
+    if (!word_check == false) && (!word_check.blank?)
       @def = Text.yahoo_mech(word_check)
       @response = { 'code' => 2, 'query' => word_check, 'offset_add' => word_check.length, 'def' => @def.first.to_s}
     else
