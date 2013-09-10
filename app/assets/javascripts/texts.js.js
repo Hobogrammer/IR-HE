@@ -4,7 +4,7 @@ $(document).ready(function() {
 
   oldOffset = 0;
   setRange = function(event, highlight) {
-    var endset, offset, range, textNode, words;
+    var endset, mecabAjax, mechAjax, offset, range, textNode, words;
 
     if (document.caretPositionFromPoint) {
 
@@ -19,28 +19,9 @@ $(document).ready(function() {
         range.setStart(textNode, offset);
         range.setEnd(textNode, endset);
         words = range.toString();
-        $.ajax({
-          url: '/search',
-          data: {
-            query: words
-          },
-          type: "POST",
-          success: function(resp) {
-            var test;
-
-            if (resp.code === 0) {
-              console.log("Nothing found");
-              return 0;
-            } else if (resp.code === 2) {
-              test = resp.offset_add;
-              console.log("Highlighted: " + resp.query + "   Additional Offset: " + resp.offset_add + "   Definition: " + resp.def);
-              return highlight(range, resp);
-            }
-          }
-        });
       }
     }
-    return highlight = function(range, response) {
+    highlight = function(range, mecabresponse, mechresponse) {
       var new_end, sel;
 
       if (response.offset_add !== 0) {
@@ -50,6 +31,40 @@ $(document).ready(function() {
         sel.removeAllRanges();
         return sel.addRange(range);
       }
+    };
+    mecabAjax = function(range, words) {
+      return $.ajax({
+        url: '/search',
+        data: {
+          query: words
+        },
+        type: "POST",
+        success: function(mecabResp) {
+          if (mecabResp.word === false) {
+            console.log("negative from mecab");
+            return 0;
+          } else {
+            return mechAjax(range, mecabResp);
+          }
+        }
+      });
+    };
+    return mechAjax = function(range, mecabResp) {
+      return $.ajax({
+        url: '/dic',
+        data: {
+          query: mecabResp.word
+        },
+        type: "POST",
+        success: function(mechResp) {
+          if (mechResp.code === 0) {
+            console.log("nothing from yahoo");
+            return 0;
+          } else {
+            return highlight(range, mecabResp, mechResp);
+          }
+        }
+      });
     };
   };
   element = document.getElementById("content");

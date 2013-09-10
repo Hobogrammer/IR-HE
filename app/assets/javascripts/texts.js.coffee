@@ -22,23 +22,11 @@ $(document).ready ->
         range.setStart(textNode, offset)
         range.setEnd(textNode, endset)
         words = range.toString()
-        $.ajax
-          url: '/search',
-          data: { query: words },
-          type: "POST",
-          success: (resp) ->
-            if resp.code == 0
-              console.log("Nothing found")
-              return 0
-            else if resp.code == 2
-              test = resp.offset_add
-              console.log("Highlighted: #{resp.query}   Additional Offset: #{resp.offset_add}   Definition: #{resp.def}")
-              return highlight(range,resp)
             
        
     #  $('#content').popover('title', "test")
      
-    highlight = (range, response) ->
+    highlight = (range, mecabresponse, mechresponse) ->
       if response.offset_add != 0                             
         new_end = response.offset_add + offset 
         range.setEnd(textNode, new_end)
@@ -46,6 +34,29 @@ $(document).ready ->
         sel.removeAllRanges()
         sel.addRange(range)
       
+    mecabAjax = (range, words) ->
+      $.ajax
+        url: '/search',
+        data: { query: words },
+        type: "POST",
+        success: (mecabResp) ->
+          if mecabResp.word == false
+            console.log("negative from mecab")
+            return 0
+          else
+            return mechAjax(range, mecabResp)
+
+    mechAjax = (range, mecabResp) ->
+      $.ajax
+        url: '/dic',
+        data: { query: mecabResp.word },
+        type: "POST",
+        success: (mechResp) ->
+          if mechResp.code == 0
+            console.log("nothing from yahoo")
+            return 0
+          else
+            return highlight(range, mecabResp, mechResp) #putting this here still has the problem of waiting on yahoo before highlight,
      
       
 
