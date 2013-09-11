@@ -6,6 +6,40 @@ $(document).ready ->
 
   oldOffset = 0
 
+  mechAjax = (mecabResp) ->
+      $.ajax
+        url: '/dic',
+        data: { query: mecabResp.word },
+        type: "POST",
+        success: (mechResp) ->
+          if mechResp.code == 0
+            console.log("nothing from yahoo")
+            return 0
+          else
+            console.log("Word: #{mechResp.word}   Definition: #{mechResp.def}")
+
+  highlight = (range, mecabresponse) ->
+      if mecabresponse.offset_add != 0                             
+        new_end = mecabresponse.offset_add + range.startOffset 
+        range.setEnd(range.startContainer, new_end)
+        sel = window.getSelection()
+        sel.removeAllRanges()
+        sel.addRange(range)
+        return mechAjax(mecabresponse)
+
+  mecabAjax = (range) ->
+    word = range.toString()
+    $.ajax
+      url: '/search',
+      data: { query: word  },
+      type: "POST",
+      success: (mecabResp) ->
+        if mecabResp.word == false
+          console.log("negative from mecab")
+          return 0
+        else
+          return highlight(range, mecabResp)
+  
   setRange = (event, highlight) ->
     if document.caretPositionFromPoint
       #range = document.caretPositionFromPoint(event.pageX, event.pageY)
@@ -21,43 +55,13 @@ $(document).ready ->
         endset = offset+10
         range.setStart(textNode, offset)
         range.setEnd(textNode, endset)
-        words = range.toString()
+        mecabAjax(range)
+
             
        
     #  $('#content').popover('title', "test")
-     
-    highlight = (range, mecabresponse, mechresponse) ->
-      if response.offset_add != 0                             
-        new_end = response.offset_add + offset 
-        range.setEnd(textNode, new_end)
-        sel = window.getSelection()
-        sel.removeAllRanges()
-        sel.addRange(range)
-      
-    mecabAjax = (range, words) ->
-      $.ajax
-        url: '/search',
-        data: { query: words },
-        type: "POST",
-        success: (mecabResp) ->
-          if mecabResp.word == false
-            console.log("negative from mecab")
-            return 0
-          else
-            return mechAjax(range, mecabResp)
-
-    mechAjax = (range, mecabResp) ->
-      $.ajax
-        url: '/dic',
-        data: { query: mecabResp.word },
-        type: "POST",
-        success: (mechResp) ->
-          if mechResp.code == 0
-            console.log("nothing from yahoo")
-            return 0
-          else
-            return highlight(range, mecabResp, mechResp) #putting this here still has the problem of waiting on yahoo before highlight,
-     
+    
+           
       
 
     
