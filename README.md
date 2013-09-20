@@ -1,4 +1,4 @@
-IR-HE is an attempt at creating an improved,rikaichan style LWT alternative and is in very early development.
+IR-HE is an attempt at creating an improved, [rikaichan](http://www.polarcloud.com/rikaichan/) style [LWT](http://lwt.sourceforge.net/) alternative and is in very early development.
 
 The app currently has the following features
 
