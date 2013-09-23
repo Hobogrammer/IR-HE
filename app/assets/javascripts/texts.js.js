@@ -15,6 +15,7 @@ $(document).ready(function() {
           console.log("nothing from yahoo");
           return 0;
         } else {
+          $('.popover-content').replaceWith(mechResp.def);
           return console.log("Word: " + mechResp.word + "   Definition: " + mechResp.def);
         }
       }
@@ -32,10 +33,20 @@ $(document).ready(function() {
       return mechAjax(mecabresponse);
     }
   };
-  mecabAjax = function(range) {
+  mecabAjax = function(event, range) {
     var word;
 
+    $('#content').popover('destroy');
     word = range.toString();
+    $('#content').popover({
+      placement: 'mouse',
+      coorX: event.pageX,
+      coorY: event.pageY,
+      html: true,
+      title: 'test',
+      content: "<img src='/assets/ajax-loader.gif'>",
+      trigger: 'focus'
+    }).popover('show');
     return $.ajax({
       url: '/search',
       data: {
@@ -67,7 +78,7 @@ $(document).ready(function() {
         endset = offset + 10;
         range.setStart(textNode, offset);
         range.setEnd(textNode, endset);
-        return mecabAjax(range);
+        return mecabAjax(event, range);
       }
     }
   };
