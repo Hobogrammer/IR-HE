@@ -16,7 +16,9 @@ $(document).ready ->
             console.log("nothing from yahoo")
             return 0
           else
+            $('.popover-content').replaceWith(mechResp.def)
             console.log("Word: #{mechResp.word}   Definition: #{mechResp.def}")
+
 
   highlight = (range, mecabresponse) ->
       if mecabresponse.offset_add != 0                             
@@ -27,8 +29,10 @@ $(document).ready ->
         sel.addRange(range)
         return mechAjax(mecabresponse)
 
-  mecabAjax = (range) ->
+  mecabAjax = (event, range) ->
+    $('#content').popover('destroy')
     word = range.toString()
+    $('#content').popover(placement: 'mouse', coorX: event.pageX, coorY: event.pageY, html: true, title: 'test', content: "<img src='/assets/ajax-loader.gif'>", trigger: 'focus').popover('show')
     $.ajax
       url: '/search',
       data: { query: word  },
@@ -55,7 +59,7 @@ $(document).ready ->
         endset = offset+10
         range.setStart(textNode, offset)
         range.setEnd(textNode, endset)
-        mecabAjax(range)
+        mecabAjax(event,range)
 
             
        

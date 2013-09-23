@@ -29,39 +29,43 @@ class TextsController < ApplicationController
   end
 
   def edit
-    @text = Text.find_by_id(params[:id])
+    @text = Text.find_by_id(params[:id]) 
   end
 
-  def loopup
-    @word = params[:query]
+  def lookup
+    word = params[:query]
 
-    @def = Text.yahoo_mech(@word)
-    if @def.first.blank?
-      @response = { 'code' => 0 } 
+    definition = Text.yahoo_mech(word)
+    if definition.first.blank?
+      response = { 'code' => 0 } 
     else
-      @response = { 'code' => 2, 'query' => @word, 'def' => @def.first.to_s }
+      response = { 'code' => 2, 'query' => word, 'def' => definition.first.to_s }
     end
 
     respond_to do |format|
-      format.json { render :json => @response }
+      format.json { render :json => response }
     end
   end
 
   def wordsearch
-    @selection = params[:query]
+    selection = params[:query]
 
-    word_check = Text.mecab_check(@selection).first.to_s
+    word_check = Text.mecab_check(selection).first.to_s
 
     if word_check == false || word_check.blank?
       word_check = false
-      @response = { 'word' => word_check }
+      response = { 'word' => word_check }
     else
-      @response = { 'word' => word_check, 'offset_add' => word_check.length }
+      response = { 'word' => word_check, 'offset_add' => word_check.length }
     end
 
      respond_to do |format|
-      format.json { render :json =>  @response }
+      format.json { render :json =>  response }
     end
+  end
+
+  def demo
+    @text = Text.find_by_id(5)
   end
 
   private
