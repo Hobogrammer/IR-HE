@@ -5,6 +5,8 @@
 $(document).ready ->
 
   oldOffset = 0
+  lastCall = Date.now()
+  delay = 850
 
   mechAjax = (mecabResp) ->
       $.ajax
@@ -44,7 +46,7 @@ $(document).ready ->
         else
           return highlight(range, mecabResp)
   
-  setRange = (event, highlight) ->
+  setRange = (event) ->
     if document.caretPositionFromPoint
       #range = document.caretPositionFromPoint(event.pageX, event.pageY)
       #textNode = range.offsetNode
@@ -61,16 +63,19 @@ $(document).ready ->
         range.setEnd(textNode, endset)
         mecabAjax(event,range)
 
-            
-       
-    #  $('#content').popover('title', "test")
-    
-           
-      
 
-    
-    
-  element = document.getElementById("content")
-  element.addEventListener('mousemove', setRange, true) 
+  throttleListener = (event) ->
+    console.log "Checking time.."
+    now = Date.now()
+    diff = now-lastCall
+    if diff >= delay
+      console.log "OK"
+      lastCall = now
+      setRange(event)
+    else
+      console.log "NOT OK"
+      return false
 
 
+  element = document.getElementById("content") 
+  element.addEventListener('mousemove', throttleListener , true)

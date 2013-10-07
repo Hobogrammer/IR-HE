@@ -36,6 +36,7 @@ gem 'faker'
 gem 'simple_form'
 gem 'mecab'
 
+gem 'eb', :git => 'git://github.com/albel727/rubyeb19.git'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

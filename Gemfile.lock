@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/albel727/rubyeb19.git
+  revision: 890ba75fa3f637f339cd694b2c0071fa62d35069
+  specs:
+    eb (2.6.0)
+
+GIT
   remote: git://github.com/sporkrb/spork-rails.git
   revision: 3224f84d8c31fcb0894e9a43f6c3ac67e3aa0d71
   specs:
@@ -244,6 +250,7 @@ DEPENDENCIES
   capybara (= 2.1.0)
   childprocess (= 0.3.9)
   coffee-rails (~> 4.0.0)
+  eb!
   factory_girl_rails (= 4.2.1)
   faker
   guard-rspec (= 2.5.0)
