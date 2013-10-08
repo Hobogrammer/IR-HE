@@ -2,7 +2,7 @@ IRHE::Application.routes.draw do
 
 root to: 'static_pages#home'
 
-resources :users , :texts
+resources :users , :texts, :words
 
 namespace :users do 
   resources :texts, :words

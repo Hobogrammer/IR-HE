@@ -18,7 +18,8 @@ $(document).ready ->
             console.log("nothing from yahoo")
             return 0
           else
-            $('.popover-content').replaceWith(mechResp.def)
+            $('.popover-content').replaceWith(mechResp.def + 
+              " <div id='footer'> <a href='#wordModal' data-toggle='modal'>test</a></div>")
             console.log("Word: #{mechResp.word}   Definition: #{mechResp.def}")
 
 

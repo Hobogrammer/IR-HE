@@ -26,6 +26,7 @@ class TextsController < ApplicationController
 
   def show
     @text = Text.find_by_id(params[:id])
+    @word = current_user.words.build
   end
 
   def edit
@@ -72,6 +73,8 @@ class TextsController < ApplicationController
     def text_params
       params.require(:text).permit(:title,:content,:language,:tags,:share, :user_id)
     end
+
+   
 
     def correct_user
      @text = current_user.texts.find_by_id(params[:id])
