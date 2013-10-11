@@ -24,6 +24,6 @@ class Text < ActiveRecord::Base
     agent = Mechanize.new
 
     agent.get("http://dic.search.yahoo.co.jp/search?ei=UTF-8&p=#{word}&fr=dic&stype=prefix")
-    definitions = agent.page.search("#DSm1 li").map(&:text).map(&:strip)
+    definitions = agent.page.search("#DSm1 li").map(&:text)
   end
 end

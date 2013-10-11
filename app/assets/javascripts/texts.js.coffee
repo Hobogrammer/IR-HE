@@ -8,6 +8,12 @@ $(document).ready ->
   lastCall = Date.now()
   delay = 850
 
+  formFill = ->
+    term = $('.popover-title').html()
+    def = $('.popover-content').html()
+    $('#word_term').val(term) 
+    $('#word_definition').val(def)
+
   mechAjax = (mecabResp) ->
       $.ajax
         url: '/dic',
@@ -18,9 +24,11 @@ $(document).ready ->
             console.log("nothing from yahoo")
             return 0
           else
+            $('h3.popover-title').html(mechResp.query)
             $('.popover-content').replaceWith(mechResp.def + 
-              " <div id='footer'> <a href='#wordModal' data-toggle='modal'>test</a></div>")
+              " <div id='footer'> <a href='#wordModal' data-toggle='modal' id='wordSave'>test</a></div>")
             console.log("Word: #{mechResp.word}   Definition: #{mechResp.def}")
+            formFill() #i wonder how much this costs...
 
 
   highlight = (range, mecabresponse) ->
@@ -80,3 +88,4 @@ $(document).ready ->
 
   element = document.getElementById("content") 
   element.addEventListener('mousemove', throttleListener , true)
+  
