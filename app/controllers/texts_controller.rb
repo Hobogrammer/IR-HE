@@ -2,6 +2,11 @@ class TextsController < ApplicationController
   before_filter :signed_in_user, only: [:create, :new, :destroy, :edit]
   before_filter :correct_user, only: [:edit, :update, :destroy]
   
+  REDACTOR_TAGS = %w(span div label a br p b i del strike u img video audio
+                  blockquote mark cite small ul ol li hr dl dt dd sup sub big pre figure 
+                  figcaption strong em table tr td th tbody thead tfoot h1 h2 h3 h4 h5 h6)
+
+  REDACTOR_ATTRIBUTES = %w(href)
   def index
     @texts = Text.all.to_a
   end
@@ -11,12 +16,13 @@ class TextsController < ApplicationController
   end
 
   def create
+    params[:content] = sanitize_redactor(params[:content])
     @text = current_user.texts.build(text_params)
     if @text.save
       flash[:success] = "Text Saved"
       redirect_to panel_path #Change to texts_path when that is finished
     else 
-      flash[:error] = "Flash failed to save, please try again"
+      flash[:error] = "Text failed to save, please try again"
       render 'new'
     end
   end
@@ -74,10 +80,17 @@ class TextsController < ApplicationController
       params.require(:text).permit(:title,:content,:language,:tags,:share, :user_id)
     end
 
-   
-
     def correct_user
      @text = current_user.texts.find_by_id(params[:id])
       redirect_to(panel_path) if @text.nil?
+    end
+
+    def sanitize_redactor(orig)
+      stripped = view_context.strip_tags(orig)
+      if stripped.present?
+        view_context.sanitize(orig, tags: REDACTOR_TAGS, attributes: REDACTOR_ATTRIBUTES)
+      else
+        nil
+      end
     end
 end
