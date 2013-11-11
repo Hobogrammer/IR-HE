@@ -8,13 +8,29 @@ $(document).ready ->
   lastCall = Date.now()
   delay = 850
 
-  formFill = ->
+  formFill = (range) ->
     term = $('.popover-title').html()
     def = $('.popover-content').html()
     $('#word_term').val(term) 
     $('#word_definition').val(def)
+    new_start = range.startOffset- 40
+    startNode = range.startContainer
+    range.setStart(startNode, new_start)
+    
+    try
+      new_end = range.startOffset + 60
+      range.setEnd(startNode, new_end)
+    catch e
+      range.setEndAfter(startNode) 
+    sentences = range.toString()
+    console.log(sentences)
+    sentReg = /(.*?(。|？|！))/g
+    sentMatch = sentences.match(sentReg)
+    console.log(sentMatch[0])
+    console.log(sentMatch[1])
+    console.log(sentMatch[2])
 
-  mechAjax = (mecabResp) ->
+  mechAjax = (mecabResp,range) ->
       $.ajax
         url: '/dic',
         data: { query: mecabResp.word },
@@ -28,7 +44,7 @@ $(document).ready ->
             $('.popover-content').replaceWith(mechResp.def + 
               " <div id='footer'> <a href='#wordModal' data-toggle='modal' id='wordSave'>test</a></div>")
             console.log("Word: #{mechResp.word}   Definition: #{mechResp.def}")
-            formFill() #i wonder how much this costs...
+            formFill(range) #i wonder how much this costs...
 
 
   highlight = (range, mecabresponse) ->
@@ -38,7 +54,7 @@ $(document).ready ->
         sel = window.getSelection()
         sel.removeAllRanges()
         sel.addRange(range)
-        return mechAjax(mecabresponse)
+        return mechAjax(mecabresponse, range)
 
   mecabAjax = (event, range) ->
     $('#content').popover('destroy')

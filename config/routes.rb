@@ -1,5 +1,6 @@
 IRHE::Application.routes.draw do
 
+  mount RedactorRails::Engine => '/redactor_rails'
 root to: 'static_pages#home'
 
 resources :users , :texts, :words

@@ -1,12 +1,20 @@
 <div class="row">
   <div class = "span6">
-  <%= simple_form_for @text do |f| %>
-    <%= f.input :title %>
-    <%= f.input :content %>
-    <%= f.input :language %>
-    <%= f.input :tags %>
-    <%= f.input :share %>
-    <%= f.button :submit %>
+  <%= form_for(@text) do |f| %>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+
+    <%= f.label :content %>
+    <%= text_area_tag :editor, "", :class => "redactor", :rows => 40, :cols => 120 %>
+
+    <%= f.label :language %>
+    <%= f.text_field :language %>
+
+    <%= f.label :tags %>
+    <%= f.text_field :tags %>
+
+    <%= f.label :share %>
+    <%= f.check_box :share %>
   <% end %>
 </div>
 </div>

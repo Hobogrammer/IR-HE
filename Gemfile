@@ -38,6 +38,11 @@ gem 'mecab'
 
 gem 'eb', :git => 'git://github.com/albel727/rubyeb19.git'
 
+gem 'redactor-rails', :git => 'git://github.com/alvin/redactor-rails.git'
+gem "carrierwave"
+gem "mini_magick"
+
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
