@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   has_many :texts
-  has_many :words , :through => :texts
+  has_many :words
 
   validates :name, presence: true
   validates :provider, presence: true

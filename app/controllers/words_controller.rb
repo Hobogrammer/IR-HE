@@ -7,13 +7,15 @@ class WordsController < ApplicationController
   end
 
   def create
-    @word = current_user.words.build(params[:word_params])
+    @word = current_user.words.build(word_params)
 
     respond_to do |format|
 
       if @word.save
+        flash[:success] = "Word Saved"
         format.js { render :action => 'create_success' }
       else
+        flash[:error] = "Word failed to save"
         format.js { render :action => 'create_fail' }
       end
     end
