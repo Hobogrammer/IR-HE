@@ -72,10 +72,6 @@ class TextsController < ApplicationController
     end
   end
 
-  def demo
-    @text = Text.find_by_id(5)
-  end
-
   private
     def text_params
       params.require(:text).permit(:title,:content,:language,:tags,:share, :user_id)

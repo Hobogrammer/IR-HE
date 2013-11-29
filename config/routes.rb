@@ -15,5 +15,4 @@ get "auth/twitter/callback", to: "sessions#create"
 get "/panel", to: "users#main", :as => 'panel'
 post "/search", to: "texts#wordsearch"
 post "/dic", to: "texts#lookup"
-get "/demo", to: "texts#demo"
 end
