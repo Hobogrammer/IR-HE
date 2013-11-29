@@ -1,5 +1,5 @@
 class TextsController < ApplicationController
-  before_filter :signed_in_user, only: [:create, :new, :destroy, :edit]
+  before_filter :signed_in_user, only: [:create, :new]
   before_filter :correct_user, only: [:edit, :update, :destroy]
   
   REDACTOR_TAGS = %w(span div label a br p b i del strike u img video audio
@@ -33,6 +33,7 @@ class TextsController < ApplicationController
   def show
     @text = Text.find_by_id(params[:id])
     @word = current_user.words.build
+    @text_id = params[:id]
   end
 
   def edit

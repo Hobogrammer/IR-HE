@@ -8,13 +8,14 @@
     <h3>Save a word</h3>
   </div>
   <div class="modal-body">
-    <%= simple_form_for @word do |f| %>
+    <%= simple_form_for @word, :remote => true do |f| %>
       <%= f.input :term %>
       <%= f.input :reading %>
       <%= f.input :definition %>
       <%= f.input :sentence %>
       <%= f.input :tags %>
       <%= f.input :shared %>
+      <%= f.hidden_field :text_id, :value => "#{@text_id}" %>
   </div>
   <div class="modal-footer">
     <%= submit_tag 'Cancel', :class => "btn btn-danger", 'data-dismiss' => "modal" %>

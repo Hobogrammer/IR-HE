@@ -8,27 +8,31 @@ $(document).ready ->
   lastCall = Date.now()
   delay = 850
 
-  formFill = (range) ->
-    term = $('.popover-title').html()
-    def = $('.popover-content').html()
+  formFill = (range, term, def) ->
     $('#word_term').val(term) 
     $('#word_definition').val(def)
+    
     new_start = range.startOffset- 40
+    if new_start < 0
+      new_start = 0
     startNode = range.startContainer
     range.setStart(startNode, new_start)
-    
-    try
-      new_end = range.startOffset + 60
-      range.setEnd(startNode, new_end)
-    catch e
-      range.setEndAfter(startNode) 
+    # startNode = range.startContainer.prevSibling
+    # console.log startNode + "yes"
+    # new_start = range.startOffset - 40
+    new_end = range.startOffset + 60
+    if new_end > startNode.length
+      new_end =  startNode.length
+    range.setEnd(startNode, new_end)
+    range.setEndAfter(startNode) 
     sentences = range.toString()
     console.log(sentences)
-    sentReg = /(.*?(。|？|！))/g
-    sentMatch = sentences.match(sentReg)
-    console.log(sentMatch[0])
-    console.log(sentMatch[1])
-    console.log(sentMatch[2])
+    $('#word_sentence').val(sentences)
+    # sentReg = /(.*?(。|？|！))/g
+    # sentMatch = sentences.match(sentReg)
+    # console.log(sentMatch[0])
+    # console.log(sentMatch[1])
+    # console.log(sentMatch[2])
 
   mechAjax = (mecabResp,range) ->
       $.ajax
@@ -44,7 +48,7 @@ $(document).ready ->
             $('.popover-content').replaceWith(mechResp.def + 
               " <div id='footer'> <a href='#wordModal' data-toggle='modal' id='wordSave'>test</a></div>")
             console.log("Word: #{mechResp.word}   Definition: #{mechResp.def}")
-            formFill(range) #i wonder how much this costs...
+            formFill(range, mechResp.query, mechResp.def) #i wonder how much this costs...
 
 
   highlight = (range, mecabresponse) ->
@@ -78,6 +82,7 @@ $(document).ready ->
       #offset = range.offset
     else if document.caretRangeFromPoint
       console.log("oldOffset: #{oldOffset}")
+      console.log event.pageX
       range = document.caretRangeFromPoint(event.pageX, event.pageY)
       textNode = range.startContainer  
       offset = range.startOffset
@@ -90,15 +95,13 @@ $(document).ready ->
 
 
   throttleListener = (event) ->
-    console.log "Checking time.."
+    console.log (event.target).nextSibling
     now = Date.now()
     diff = now-lastCall
     if diff >= delay
-      console.log "OK"
       lastCall = now
       setRange(event)
     else
-      console.log "NOT OK"
       return false
 
 
