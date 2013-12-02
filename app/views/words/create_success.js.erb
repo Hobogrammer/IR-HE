@@ -1,1 +1,6 @@
-$(#wordModal).append(<%= j(flash.now[:success] = "WordSaved") %>)
+$(".input").hide(50);
+$(".modal-body").append("<h3>WORDSAVED</h3>");
+$(".input").delay(3000).show(50);
+$(".modal-body h3").fadeOut(3000);
+setTimeout(function() { $("#wordModal").modal('hide'); }, 4000);
+

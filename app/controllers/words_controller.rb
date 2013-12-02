@@ -34,7 +34,7 @@ class WordsController < ApplicationController
 
   private
      def word_params
-      params.require(:word).permit(:term,:definition,:sentence,:tags,:share, :text_id)
+      params.require(:word).permit(:term,:definition,:sentence,:tags,:shared, :text_id)
     end
 
     def correct_user
