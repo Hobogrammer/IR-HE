@@ -1,9 +1,9 @@
 class TextsController < ApplicationController
   before_filter :signed_in_user, only: [:create, :new]
   before_filter :correct_user, only: [:edit, :update, :destroy]
-  
+
   REDACTOR_TAGS = %w(span div label a br p b i del strike u img video audio
-                  blockquote mark cite small ul ol li hr dl dt dd sup sub big pre figure 
+                  blockquote mark cite small ul ol li hr dl dt dd sup sub big pre figure
                   figcaption strong em table tr td th tbody thead tfoot h1 h2 h3 h4 h5 h6)
 
   REDACTOR_ATTRIBUTES = %w(href)
@@ -21,7 +21,7 @@ class TextsController < ApplicationController
     if @text.save
       flash[:success] = "Text Saved"
       redirect_to panel_path #Change to texts_path when that is finished
-    else 
+    else
       flash[:error] = "Text failed to save, please try again"
       render 'new'
     end
@@ -37,7 +37,13 @@ class TextsController < ApplicationController
   end
 
   def edit
-    @text = Text.find_by_id(params[:id]) 
+    @text = Text.find_by_id(params[:id])
+  end
+
+  def update
+  end
+
+  def destroy
   end
 
   def lookup
@@ -45,7 +51,7 @@ class TextsController < ApplicationController
 
     definition = Text.yahoo_mech(word)
     if definition.first.blank?
-      response = { 'code' => 0 } 
+      response = { 'code' => 0 }
     else
       response = { 'code' => 2, 'query' => word, 'def' => definition.first.to_s }
     end

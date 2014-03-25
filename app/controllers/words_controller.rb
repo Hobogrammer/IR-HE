@@ -2,6 +2,13 @@ class WordsController < ApplicationController
   before_action :signed_in_user, only: [:create, :new]
   before_action :correct_user, only: [:edit, :update, :destroy]
 
+  def index
+  end
+
+  def show
+    @word = Word.find_by_user_id(params[:id])
+  end
+
   def new
     @word = Word.new
   end
@@ -21,16 +28,14 @@ class WordsController < ApplicationController
     end
   end
 
-  def show
-    @word = Word.find_by_user_id(params[:id])
+  def edit
   end
 
-  def index
+  def update
   end
 
   def destroy
   end
-
 
   private
      def word_params

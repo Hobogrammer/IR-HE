@@ -29,7 +29,6 @@ group :test do
   gem 'capybara', '2.1.0'
   gem 'factory_girl_rails'
   gem 'libnotify', '0.8.0'
-  gem 'selenium-webdriver' , '2.0.0'
 end
 
 group :development do
