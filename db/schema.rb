@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20131108000444) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "redactor_assets", force: true do |t|
     t.string   "data_file_name",               null: false
     t.string   "data_content_type"

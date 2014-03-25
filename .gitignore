@@ -15,4 +15,6 @@
 /log/*.log
 /tmp
 /config/initializers/secret_token.rb
-/config/initializers/omniauth.rb
+
+# Ignore application configuration
+/config/application.yml
