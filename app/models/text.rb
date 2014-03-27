@@ -23,7 +23,7 @@ class Text < ActiveRecord::Base
   def self.yahoo_mech(word)
     agent = Mechanize.new
 
-    agent.get("http://dic.search.yahoo.co.jp/search?ei=UTF-8&p=#{word}&fr=dic&stype=prefix")
+    agent.get("http://dic.search.yahoo.co.jp/search?ei=UTF-8&p=#{word}&stype=prefix&fr=dic")
     definitions = agent.page.search("#DSm1 li").map(&:text)
   end
 end
