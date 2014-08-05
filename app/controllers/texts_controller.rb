@@ -7,6 +7,7 @@ class TextsController < ApplicationController
                   figcaption strong em table tr td th tbody thead tfoot h1 h2 h3 h4 h5 h6)
 
   REDACTOR_ATTRIBUTES = %w(href)
+
   def index
     @texts = Text.all.to_a
   end
