@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.1'
+ruby '2.1.2'
 gem 'rails', '4.0.3'
 
 
@@ -11,7 +11,7 @@ gem 'faker'
 gem 'figaro'
 gem 'jbuilder', '~> 1.2'
 gem 'jquery-rails'
-gem 'mecab'
+gem 'mecab', '0.98'
 gem 'mechanize'
 gem 'omniauth-twitter'
 gem 'pg'
