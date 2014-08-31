@@ -19,6 +19,7 @@ class TextsController < ApplicationController
   def create
     params[:content] = sanitize_redactor(params[:content])
     @text = current_user.texts.build(text_params)
+    save_text = Text.process_text(@text)
     if @text.save
       flash[:success] = "Text Saved"
       redirect_to panel_path #Change to texts_path when that is finished

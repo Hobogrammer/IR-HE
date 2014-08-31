@@ -26,4 +26,8 @@ class Text < ActiveRecord::Base
     agent.get("http://dic.search.yahoo.co.jp/search?ei=UTF-8&p=#{word}&stype=prefix&fr=dic")
     definitions = agent.page.search("#DSm1 li").map(&:text)
   end
+
+  def self.process_text(text)
+
+  end
 end
