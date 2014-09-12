@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131108000444) do
+ActiveRecord::Schema.define(version: 20140912024625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "paragraphs", force: true do |t|
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "text_id",    null: false
+  end
 
   create_table "redactor_assets", force: true do |t|
     t.string   "data_file_name",               null: false
@@ -35,7 +42,6 @@ ActiveRecord::Schema.define(version: 20131108000444) do
   create_table "texts", force: true do |t|
     t.integer  "user_id"
     t.string   "title"
-    t.text     "content"
     t.string   "language"
     t.string   "tags",                       array: true
     t.boolean  "share",      default: false

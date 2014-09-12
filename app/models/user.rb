@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many :texts
-  has_many :words
+  has_many :words, :through => :texts
+  has_many :paragraphs, :through => :texts
 
   validates :name, presence: true
   validates :provider, presence: true
@@ -14,5 +15,5 @@ class User < ActiveRecord::Base
       user.name = auth["info"]["nickname"]
       user.avatar  = auth["info"]["image"]
     end
-  end 
+  end
 end

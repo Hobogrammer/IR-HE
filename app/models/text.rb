@@ -1,11 +1,11 @@
 class Text < ActiveRecord::Base
 
   belongs_to :users
-  has_many :words
+  belongs_to :paragrphs
+  has_many :words, :through => :paragrphs
 
   validates :user_id, presence: true
   validates :title, presence: true
-  validates :content, presence: true
   validates :language, presence: true
 
   def self.mecab_check(query)
@@ -17,7 +17,7 @@ class Text < ActiveRecord::Base
       processed = processed.next
       processed_array << processed.surface.force_encoding("UTF-8")
     end until processed.next.feature.include?("BOS/EOS")
-    return processed_array
+    processed_array
   end
 
   def self.yahoo_mech(word)
@@ -25,9 +25,5 @@ class Text < ActiveRecord::Base
 
     agent.get("http://dic.search.yahoo.co.jp/search?ei=UTF-8&p=#{word}&stype=prefix&fr=dic")
     definitions = agent.page.search("#DSm1 li").map(&:text)
-  end
-
-  def self.process_text(text)
-
   end
 end

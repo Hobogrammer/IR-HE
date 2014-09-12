@@ -82,7 +82,7 @@ class TextsController < ApplicationController
 
   private
     def text_params
-      params.require(:text).permit(:title,:content,:language,:tags,:share, :user_id)
+      params.require(:text).permit(:title,:language,:tags,:share, :user_id)
     end
 
     def correct_user
