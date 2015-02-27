@@ -24,6 +24,11 @@
             <li><a href="#">Ranking</a></li>
           </ul>
         </li>
+        <% if current_user %>
+          <li><a href="#">Log out</a></li>
+        <% else %>
+          <li><a href="#">Login</a></li>
+        <% end %>
       </ul>
     </div>
   </div>
