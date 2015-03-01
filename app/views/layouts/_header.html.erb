@@ -24,7 +24,7 @@
             <li><a href="#">Ranking</a></li>
           </ul>
         </li>
-        <% if current_user %>
+        <% if user_signed_in? %>
           <li><a href="#">Log out</a></li>
         <% else %>
           <li><a href="#">Login</a></li>
