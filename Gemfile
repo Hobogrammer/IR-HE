@@ -13,6 +13,7 @@ gem 'minitest-rails'
 gem 'omniauth-twitter'
 gem 'pg'
 gem 'pry-byebug'
+gem 'therubyracer'
 gem 'sass-rails', '~> 4.0.3'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'turbolinks'
